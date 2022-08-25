@@ -1,0 +1,27 @@
+					   
+body {background:url('video.png');
+      background-size:cover;}
+
+.bgvideo {position:fixed;
+          right:0;
+		  bottom:0;
+		  min-width: 1366px;
+		  min-height: 768px;
+		  width:100%;
+		  height:100%;
+		  z-index:-5;}
+
+#userpanel {
+             width:200px;
+             margin: 20px 20px;
+			 text-align:left;}
+
+#userpanel button {color:skyblue;
+                   border:none;
+				   background:transparent;
+                   font-family:"Comic Sans MS";
+				   font-size:20px;
+                   text-align:center;
+				   display:block;}
+				  
+#userpanel button:hover {text-shadow:skyblue 0px 0px 10px;}

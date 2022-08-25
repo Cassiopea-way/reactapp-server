@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Это заголовок тайтл</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel = "stylesheet" type = "text/css" href = "css/register.css">
+        		
+	</head>
+	<style>
+	   			   
+    </style>
+	<body>
+	   <video autoplay loop muted preload = "none" class = "bgvideo">
+	       <source src = "/videos/video1.mp4" type = "video/mp4"></source>
+	   </video>
+	   <header>
+	  
+	   </header>
+	   <div id = "registerform">
+	   <form name = "register">
+          <label>Имя</label><br>
+          <input type="text" name="userName" /><br><br>
+          <label>Фамилия</label><br>
+          <input type="text" name="userSurname" /><br><br>
+		  <label>Логин</label><br>
+          <input type="text" name="userLogin" /><br><br>
+		  <label>Пароль</label><br>
+          <input type="text" name="userPassword" /><br><br>
+		  <label>Адрес электронной почты</label><br>
+          <input type="text" name="userEmail" /><br>
+          <button data-page = "register" id = "createuser" class = "btns">Зарегистрироваться</button>
+       </form>
+	   </div>
+	</body>
+	<script>
+	    window.onload = function(){
+		  let createuser = document.getElementById('createuser');
+		  let inputs = document.getElementsByTagName('input');
+		  
+		  createuser.onclick = function(e){
+		      
+			  e.preventDefault();
+			  
+		      let userData = {
+		       username:inputs[0].value,
+			   usersurname:inputs[1].value,
+		       userlogin:inputs[2].value,
+			   userpassword:inputs[3].value,
+			   useremail:inputs[4].value,
+		      };
+			  
+			   fetch('/login',{
+			   method:'POST',
+			   mode:'cors',
+			   redirect:'follow',
+			   headers: {
+			     'Content-type':'application/json',
+			   },
+			   body: JSON.stringify(userData),
+			 })
+			 .then(response =>  
+			 {
+			    if (response.redirected){
+				  document.location = response.url;
+				}
+			 })
+			 .then(data => {
+			   console.log('OK:',data);
+			 })
+			 .catch((error) => {
+			   console.error('Error:',error," url: ",url);
+			 }); 
+		  
+		  }
+		  	 
+		  }
+		  	
+    </script>
+</html>

@@ -1,0 +1,36 @@
+body {background:url('video.png');
+      background-size:cover;}
+
+.bgvideo {position:fixed;
+          right:0;
+		  bottom:0;
+		  min-width: 1366px;
+		  min-height: 768px;
+		  width:100%;
+		  height:100%;
+		  z-index:-5;}
+
+#registerform {margin:120px auto;
+			width:170px;
+			height:100px;}
+			
+#registerform form label {display:block;
+                          color:skyblue;
+	                      margin: 0px auto;
+					      padding:0px;
+					      text-align:center;
+					      white-space:pre;}
+						  
+#registerform form input {background:transparent;}
+                   
+#createuser {margin:20px auto;
+			 display:block;
+			 color:skyblue;
+			 border:1px solid skyblue;
+			 border-radius:5px;
+			 background:transparent;
+			 padding:10px;
+			 }
+
+#createuser:hover {color:black;
+                   background-color:skyblue;}			 

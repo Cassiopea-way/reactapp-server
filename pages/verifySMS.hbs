@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Это заголовок тайтл</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel = "stylesheet" type = "text/css" href = "css/verifySMS.css">
+        		
+	</head>
+	<style>
+	   			   
+    </style>
+	<body>
+	   <video autoplay loop muted preload = "none" class = "bgvideo">
+	       <source src = "/videos/video1.mp4" type = "video/mp4"></source>
+	   </video>
+	   <header>
+	  
+	   </header>
+	   <div id = "verifysmsform">
+	   <form name = "verifysms">
+          <label>Введите код из СМС для подтверждения</label><br>
+          <input type="text"/><br><br>
+		  <label id = "errorcode"></label>
+          <button id = "proofsms">подтвердить</button>
+       </form>
+	   </div>
+	</body>
+	<script>
+	    window.onload = function(){
+		  let proofsms = document.getElementById('proofsms');
+		  let errorcode = document.getElementById('errorcode');
+		  let inputs = document.getElementsByTagName('input');
+		  proofsms.onclick = function(e){
+		     e.preventDefault(e);
+			 let userData = {
+		       proofcode:inputs[0].value,
+			 }
+			   fetch('/SMSisverify',{
+			   method:'POST',
+			   redirect:'follow',
+			    headers: {
+			     'Content-type':'application/json',
+			   },
+			   body: JSON.stringify(userData),
+			 })
+			 .then(response =>  
+			 {
+			    if (response.redirected){
+				  document.location = response.url;
+				} else {
+				  errorcode.innerHTML = 'Неверный код';
+				}
+			 })
+			 .catch((error) => {
+			   console.error('Error:',error);
+			 }); 
+		  
+		  }
+		  	 
+		  }
+		  	
+    </script>
+</html>

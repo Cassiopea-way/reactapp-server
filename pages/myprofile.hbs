@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Это заголовок тайтл</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel = "stylesheet" href = "/css/myprofile.css">
+    <script>
+	    window.onload = function(){
+		  let loadphoto = document.getElementById('loadphoto');
+		  let photo = document.getElementById('photo');
+		  let changeinfo = document.getElementsByClassName('changeinfo');
+		  let checkinfo = document.getElementsByClassName('checkinfo');
+		  let changepassword = document.getElementById('changepassword');
+		  let information = document.getElementById('information');
+		  let inputfile = document.getElementById('inputfile');
+		  let back = document.getElementById('back');
+		  let changename = document.getElementById('changename');
+		  let changesurname = document.getElementById('changesurname');
+		  let formimage = document.getElementById('formimage');
+		  
+		  const upload = (filedata) => {
+		    //photo.style.backgroundImage = inputfile.files[0];
+			console.log(inputfile.files[0]);
+			const formData = new FormData(formimage);
+			formData.append('file',filedata);
+			
+			const imageoptionsdatabase = {
+			  method:'PUT',
+			  body: formData,
+			};
+			const options = {
+			  method:'POST',
+			  body: formData,
+			};
+			
+		    fetch('/uploads',options
+			)
+			.then(
+			  response => response.blob()
+			)
+			.then(imageBlob => {
+			  const imageObjectURL = URL.createObjectURL(imageBlob);
+			  photo.style.background = "url('" + imageObjectURL + "')";
+              //photo.style.backgroundSize = '200px 200px';
+			  photo.style.backgroundSize = 'cover';
+			  photo.style.color = 'transparent';	
+			  URL.revokeObjectURL(imageBlob);
+			  console.log(imageObjectURL);
+			})
+			.catch(
+			  error => console.log(error)
+			)
+			
+			fetch('/uploads',imageoptionsdatabase
+			)
+			.then(
+			  response => {console.log(response.text);}
+			)
+			.catch(
+			  error => console.log(error)
+			)
+		  }
+		  
+		  const onSelectFile = () => upload(inputfile.files[0]);
+		  
+		  function userchangeinfo(obj,element,parameter){
+		    switch (parameter) {
+			  case 1:
+			  obj.userName = element.innerHTML;
+			  case 2:
+			  obj.userSurname = element.innerHTML;
+			  case 3:
+			  obj.userLogin = element.innerHTML;
+			  case 4:
+			  obj.userEmail = element.innerHTML;
+			}			
+			let input = document.createElement('input');
+			try {
+			  element.innerHTML = '';
+			}
+			catch (err) {
+			  console.log(err);
+			}
+			element.appendChild(input);
+			input.addEventListener('keydown', function(e){
+			   if (e.keyCode == 13){
+			     element.innerHTML = input.value;
+				 console.log(element.innerHTML);
+	             obj.change = element.innerHTML;
+				 console.log(obj);
+				 try {
+				    element.removeChild(input);
+				 }
+				 catch (err){
+				   console.log(err);
+				 }
+				    fetch('/user/myprofile',{
+			        method:'PUT',
+			        mode:'cors',
+			        redirect:'follow',
+			        headers: {
+			          'Content-type':'application/json',
+			        },
+			        body: JSON.stringify(obj),
+			     })
+			     .then(response => {console.log(response.text());})
+			     .catch((error) => {
+			       console.error('Error:',error);
+			     });
+			   }
+			});
+		  }
+		  for (let i = 0; i < changeinfo.length; i++){
+		    changeinfo[i].onclick = function(e){
+			  this.disabled = true;
+			  let targetclick = e.target;
+			  let cell = targetclick.parentElement;
+			  let row = cell.parentElement;
+			  let rows = row.parentElement.children;
+			  let previous = cell.previousElementSibling;
+			  let param;
+			  let userData = {};
+			  console.log(i);
+			  switch (i) {
+			    case 0:
+				e.preventDefault();
+				this.previousElementSibling.click();
+				inputfile.addEventListener('change',onSelectFile,false);			
+			    case 1:
+				userchangeinfo(userData,previous,i);
+				case 2:
+				userchangeinfo(userData,previous,i);
+				case 3:
+				userchangeinfo(userData,previous,i);
+				case 4:
+				userchangeinfo(userData,previous,i);
+			  }
+			  this.disabled = false;
+			}
+		  }
+		  
+		  for (let i = 0; i < checkinfo.length; i++){
+		    checkinfo[i].onclick = function(){
+			 console.log(i);
+			  switch(i) {
+			    case 0:
+				  fetch('/send',{ 
+				  method:'GET',
+			      redirect:'follow',
+			    })
+			    .then(response =>  
+			      {
+			        console.log(response.text);
+			      })
+			       .catch((error) => {
+			        console.error('Error:',error);
+			      });
+				break;
+				case 1:
+				  fetch('/sendSMS',{ 
+				    method:'GET',
+			        redirect:'follow',
+			      })
+			      .then(response =>  
+			      {
+			         if (response.redirected){
+				       document.location = response.url;
+				     }
+			      })
+			       .catch((error) => {
+			        console.error('Error:',error);
+			      });
+				break;
+				  
+			  }
+			}
+		  }
+		  
+		  back.onclick = function(){
+		    document.location = '/user';
+		  }
+		  changepassword.onclick = function(){
+		    document.location = '/user/myprofile/changepassword';
+		  }
+		  /*let userphoto = new Image;
+		  userphoto.src = 'C:/programms/nodejs/domains/digital/uploads/pisos.jpg';
+		  photo.appendChild(userphoto);*/
+		  let superparam2 = '{{userphoto}}';
+		  photo.style.backgroundImage = "url('/uploads/'" + superparam2 + "')";
+		}
+    </script>		
+	</head>
+	<style>
+	  
+    </style>
+	<body>
+	   <video autoplay loop muted preload = "none" class = "bgvideo">
+	       <source src = "/videos/video1.mp4" type = "video/mp4"></source>
+	   </video>
+	   <header>
+	      
+	   </header>
+	   <button id = "back">Назад</button>
+	   <div id = "profilepanel">
+	     <div id = "blockphoto">
+	       <div id = "photo">загрузить фото</div>
+		   <div id = "loadphoto">
+		     <form id = "formimage">
+		      <input id = "inputfile" type = "file" accept = "image/png, image/gif, image/jpeg"></input>
+			  <button class = "changeinfo"><label for = "file">Загрузить фото</label></button>
+			 </form>
+		   </div>
+	     </div>
+		 <div id = "blockinfo">
+		   <div id = "userinfo">
+		      <table id = "information" border = "1" cellpadding = "0" cellspacing = "0" width = "300" height = "240">
+			     <tr><td>Имя</td><td>{{username}}</td><td><button id = "changename" class = "changeinfo">изменить</button></td></tr>
+				 <tr><td>Фамилия</td><td>{{usersurname}}</td><td><button class = "changeinfo">изменить</button></td></tr>
+				 <tr><td>Логин</td><td>{{userlogin}}</td><td><button class = "changeinfo">изменить</button></td></tr>
+				 <tr><td>Пароль</td><td>********</td><td><button id = "changepassword">изменить</button></td></tr>
+				 <tr><td>Эл.почта</td><td>{{useremail}}</td><td><button class = "changeinfo">изменить</button></td></tr>
+			  </table>
+		   </div>
+		   <div id = "checkinfo">
+		      <table id = "checkinformation" cellpadding = "0" cellspacing = "0" width = "300" height = "60">
+			     <tr><td>Адрес электронной почты не подтверждён</td><td><button class = "checkinfo">подтвердить</button></td></tr>
+				 <tr><td>Номер телефона не подтверждён</td><td><button class = "checkinfo">подтвердить</button></td></tr>
+			  </table>
+		   </div>
+		 </div>
+	   </div>
+	</body>
+</html>

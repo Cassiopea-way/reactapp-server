@@ -1,0 +1,86 @@
+					   
+body {background:url('video.png');
+      background-size:cover;}
+
+.bgvideo {position:fixed;
+          right:0;
+		  bottom:0;
+		  min-width: 1366px;
+		  min-height: 768px;
+		  width:100%;
+		  height:100%;
+		  z-index:-5;}
+
+#profilepanel { 
+                width:600px;
+                margin: 120px auto;
+				display:flex;
+				justify-content:space-around;
+			    }
+				
+#blockphoto {
+	margin-top:0px;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+}
+
+#photo {width:200px;
+        height:200px;
+		color:skyblue;
+		border:1px solid skyblue;
+		background-position:center center;
+		background-repeat:no-repeat;
+		background-size:200px 200px;
+		text-align:center;
+		line-height:200px;
+		}
+		
+#loadphoto {position:relative; 
+			margin:20px auto;
+			z-index:4;}
+
+#loadphoto input[type=file]	{width:0.1px;
+                             height:0.1px;
+							 opacity:0;
+							 position:absolute;
+							 z-index:-4;}		
+			
+#userinfo {width:300px;
+           height:240px;
+		   color:skyblue;
+		   }
+		   
+#checkinfo {color:skyblue;}
+		   
+table td {text-align:center;}
+
+.changeinfo {background:transparent;
+             color:skyblue;}
+			 
+.changeinfo:hover {color:black;
+                   background-color:skyblue;}
+				   
+.checkinfo {background:transparent;
+             color:skyblue;}
+			 
+.checkinfo:hover {color:black;
+                   background-color:skyblue;}
+			 
+#changepassword {background:transparent;
+                 color:skyblue;}
+				 
+#changepassword:hover {color:black;
+                       background-color:skyblue;}
+
+#back {color:skyblue;
+       font-family:"Comic Sans MS";
+	   font-size:20px;
+       text-align:center;
+	   display:inline-block;
+	   background:transparent;
+	   border:none;
+	   margin:0px;}
+				  
+#back:hover {color:skyblue;
+             text-shadow:skyblue 0px 0px 10px;}		   

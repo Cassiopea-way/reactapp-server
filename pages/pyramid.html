@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>First Three.js app</title>
+    <style>
+      body { margin: 0; }
+      canvas { width: 100%; height: 790px; }
+      </style>
+  </head>
+  <body>
+    <script src='libraries/THREEJS/three.js-master/build/three.js'></script>
+	<script src='libraries/THREEJS/three.js-master/examples/js/loaders/OBJLoader.js'></script>
+    <script src='libraries/THREEJS/three.js-master/examples/js/controls/OrbitControls.js'></script>
+    <script>
+	   let scene, camera, renderer;
+	   
+	   function init(){
+	     scene = new THREE.Scene();
+		 scene.background = new THREE.Color(0xddddff);
+         
+         camera = new THREE.PerspectiveCamera(40,window.innerWidth/window.innerHeight,1,5000);
+		 
+		 let geometry = new THREE.BoxGeometry(1,1,1);
+		 let material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+         
+		 camera.position.z = 200;
+		 
+		 //let controls = new THREE.OrbitControls(camera, renderer);
+		 //controls.enableDamping = true;
+		 //controls.campingFactor = 0.25;
+		 //controls.enableZoom = true;
+		 
+         hlight = new THREE.AmbientLight(0x404040,100);
+         scene.add(hlight);
+		 
+		 renderer = new THREE.WebGLRenderer({antialias:true});
+		 renderer.setSize(window.innerWidth,window.innerHeight);
+		 document.body.appendChild(renderer.domElement);
+		 
+		 let loader = new THREE.OBJLoader();
+		 loader.load('libraries/THREEJS/three.js-master/examples/models/obj/PyramidHead.obj',function(obj){
+		   console.log(obj);
+		   obj.position.y -= 60;
+		   scene.add(obj);
+		   renderer.render(scene,camera);
+		 })
+         		 
+	   }
+	   
+	   /*loader.onLoadComplete=function(){
+        scene.add(FloorDiskFire);
+        //scene.add(FloorDiskEarth);
+        //scene.add(FloorDiskWater);
+        //scene.add(FloorDiskAir);
+        
+        scene.add(firePillar);
+        scene.add(earthPillar);
+        scene.add(waterPillar);
+        scene.add(airPillar);
+    };
+
+    
+    function addObjects(){
+        scene.add(FloorDiskFire);
+        //scene.add(FloorDiskEarth);
+        //scene.add(FloorDiskWater);
+        //scene.add(FloorDiskAir);
+        
+        scene.add(firePillar);
+        scene.add(earthPillar);
+        scene.add(waterPillar);
+        scene.add(airPillar);
+    };
+    */
+	   
+	   init();
+    </script>
+	
+  </body>
+</html>
