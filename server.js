@@ -40,7 +40,7 @@ let smtpTransport = nodemailer.createTransport(smtptransport({
     },*/
     auth: {
         user:"marochkins@bk.ru",
-        pass:"sr71blackbird",
+        pass:"",
     },
     
 }));
